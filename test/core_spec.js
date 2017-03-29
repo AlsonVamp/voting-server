@@ -56,44 +56,35 @@ describe('application logic', () => {
     });
     describe('vote', () => {
         it('создает результат голосования для выбранной записи', () => {
-            const state = Map({
-                vote: Map({ pair: List.of('Trainspotting', '28 Days Later') }),
-                entries: List()
-            });
+            const state = Map({ pair: List.of('Trainspotting', '28 Days Later') })
             const nextState = vote(state, 'Trainspotting');
 
-            expect(nextState).to.equal(Map({
-                vote: Map({
+            expect(nextState).to.equal(
+                Map({
                     pair: List.of('Trainspotting', '28 Days Later'),
                     tally: Map({
                         'Trainspotting': 1
                     })
-                }),
-                entries: List()
-            }))
+                }))
         });
         it('добавляет уже в имеющийся результат для выбранной записи', () => {
             const state = Map({
-                vote: Map({
-                    pair: List.of('Trainspotting', '28 Days Later'),
-                    tally: Map({
-                        'Trainspotting': 3,
-                        '28 Days Later': 2
-                    })
-                }),
-                entries: List()
+                pair: List.of('Trainspotting', '28 Days Later'),
+                tally: Map({
+                    'Trainspotting': 3,
+                    '28 Days Later': 2
+                })
             });
             const nextState = vote(state, 'Trainspotting');
-            expect(nextState).to.equal(Map({
-                vote: Map({
+            expect(nextState).to.equal(
+                Map({
                     pair: List.of('Trainspotting', '28 Days Later'),
                     tally: Map({
                         'Trainspotting': 4,
                         '28 Days Later': 2
                     })
-                }),
-                entries: List()
-            }))
+                })
+            )
         });
         it('помещает победителя текущего голосования в конец списка записей', () => {
             const state = Map({
